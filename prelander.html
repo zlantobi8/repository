@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Win Millions – MTN Playbox Trivia</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #FFCC00;
+    --yellow-dark: #E6B800;
+    --black: #111111;
+    --gray: #f5f5f5;
+    --text: #222222;
+    --muted: #777777;
+    --green: #1DB954;
+    --white: #ffffff;
+  }
+
+  body {
+    font-family: 'Sora', sans-serif;
+    background: var(--gray);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 440px;
+    margin: 0 auto;
+    background: var(--white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--black);
+    padding: 16px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .mtn-badge {
+    background: var(--yellow);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.85rem;
+    padding: 5px 14px;
+    border-radius: 6px;
+    letter-spacing: 2px;
+  }
+  .header-tag {
+    font-size: 0.7rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 32px 24px 48px;
+    color: white;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 40px;
+    background: var(--white);
+    border-radius: 40px 40px 0 0;
+  }
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 12px;
+  }
+  .hero-title {
+    font-size: clamp(2.2rem, 10vw, 3rem);
+    font-weight: 800;
+    line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .hero-title span { color: var(--yellow); }
+  .hero-sub {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.6;
+    max-width: 300px;
+  }
+
+  /* CONTENT */
+  .content {
+    padding: 28px 24px;
+    flex: 1;
+  }
+
+  /* FREE TRIAL PILL */
+  .free-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #edfbf2;
+    border: 1.5px solid #b2f0cc;
+    border-radius: 50px;
+    padding: 8px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: #158a3e;
+    margin-bottom: 28px;
+  }
+  .free-dot {
+    width: 8px; height: 8px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 1.5s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+  }
+
+  /* STATS */
+  .stats-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 28px;
+  }
+  .stat {
+    background: var(--gray);
+    border-radius: 12px;
+    padding: 14px 10px;
+    text-align: center;
+  }
+  .stat-value {
+    font-size: 1.2rem;
+    font-weight: 800;
+    color: var(--black);
+    display: block;
+  }
+  .stat-label {
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+
+  /* HOW IT WORKS */
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .steps { display: flex; flex-direction: column; margin-bottom: 28px; }
+  .step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-icon {
+    width: 40px; height: 40px;
+    background: var(--yellow);
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+  .step-title { font-size: 0.88rem; font-weight: 700; margin-bottom: 2px; }
+  .step-desc { font-size: 0.78rem; color: var(--muted); line-height: 1.5; }
+
+  /* TIMER */
+  .timer-strip {
+    background: #fff8e1;
+    border: 1.5px solid #ffe082;
+    border-radius: 12px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+  .timer-left { font-size: 0.78rem; color: #7a6000; font-weight: 600; }
+  .timer-value { font-size: 1.3rem; font-weight: 800; color: #c17f00; letter-spacing: 2px; }
+
+  /* CTA */
+  .cta-section { padding: 0 24px 32px; }
+  .price-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+  }
+  .price-label { font-size: 0.8rem; color: var(--muted); }
+  .price-value { font-size: 0.85rem; font-weight: 700; }
+  .free-tag {
+    background: var(--green);
+    color: white;
+    font-size: 0.7rem;
+    padding: 2px 8px;
+    border-radius: 50px;
+    margin-left: 6px;
+  }
+  .price-divider { height: 1px; background: #f0f0f0; margin-bottom: 16px; }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: 100%;
+    padding: 18px;
+    background: var(--yellow);
+    color: #000;
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.2s, transform 0.1s;
+  }
+  .cta-btn:active { transform: scale(0.98); background: var(--yellow-dark); }
+
+  .cancel-note { text-align: center; font-size: 0.72rem; color: var(--muted); margin-top: 10px; }
+
+  .trust-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 18px;
+    padding-top: 18px;
+    border-top: 1px solid #f0f0f0;
+  }
+  .trust-item { display: flex; align-items: center; gap: 5px; font-size: 0.7rem; color: var(--muted); font-weight: 600; }
+
+  .disclaimer {
+    font-size: 0.6rem;
+    color: #bbb;
+    text-align: center;
+    padding: 16px 24px;
+    line-height: 1.7;
+    border-top: 1px solid #f0f0f0;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="mtn-badge">MTN</div>
+    <div class="header-tag">Playbox Trivia</div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-eyebrow">🏆 Limited Time Offer</div>
+    <h1 class="hero-title">Win <span>Millions</span><br>Playing Trivia</h1>
+    <p class="hero-sub">Answer questions, beat other players, and earn real cash prizes every day.</p>
+  </div>
+
+  <div class="content">
+
+    <div class="free-pill">
+      <div class="free-dot"></div>
+      First day completely free — no charge today
+    </div>
+
+    <div class="stats-row">
+      <div class="stat">
+        <span class="stat-value">50K+</span>
+        <span class="stat-label">Players</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">₦5M+</span>
+        <span class="stat-label">Paid Out</span>
+      </div>
+      <div class="stat">
+        <span class="stat-value">Daily</span>
+        <span class="stat-label">Winners</span>
+      </div>
+    </div>
+
+    <div class="section-label">How it works</div>
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">🎁</div>
+        <div>
+          <div class="step-title">Start free today</div>
+          <div class="step-desc">Your first day is on us. No payment required to get started.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">🧠</div>
+        <div>
+          <div class="step-title">Play daily trivia</div>
+          <div class="step-desc">Answer questions across different categories and outscore other players.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">💰</div>
+        <div>
+          <div class="step-title">Earn real prizes</div>
+          <div class="step-desc">Winners receive airtime, cash, and millions in rewards every day.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="timer-strip">
+      <div class="timer-left">⏳ Free trial offer ends in</div>
+      <div class="timer-value" id="timer">14:59</div>
+    </div>
+
+  </div>
+
+  <div class="cta-section">
+    <div class="price-row">
+      <span class="price-label">Today's cost</span>
+      <span class="price-value">₦0 <span class="free-tag">FREE</span></span>
+    </div>
+    <div class="price-row">
+      <span class="price-label">From tomorrow</span>
+      <span class="price-value">₦100 / day</span>
+    </div>
+    <div class="price-divider"></div>
+
+    <a href="#" class="cta-btn" id="ctaBtn">
+      Claim Free Trial →
+    </a>
+    <div class="cancel-note">Cancel anytime · Charged once a day · MTN subscribers only</div>
+
+    <div class="trust-row">
+      <div class="trust-item">🔒 Secure</div>
+      <div class="trust-item">✅ MTN Verified</div>
+      <div class="trust-item">🏆 Real Prizes</div>
+    </div>
+  </div>
+
+  <div class="disclaimer">
+    By subscribing, you agree to be charged ₦100/day after your free trial. Customers on DND will be placed on Part Communication/Broadcasting/Entertainment/IT. © 2025 MTN Nigeria Communications PLC. All rights reserved.
+  </div>
+
+</div>
+
+<script>
+  let seconds = 14 * 60 + 59;
+  const timerEl = document.getElementById('timer');
+  setInterval(() => {
+    if (seconds > 0) seconds--;
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    timerEl.textContent = m + ':' + s;
+  }, 1000);
+
+  document.getElementById('ctaBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    this.textContent = 'Redirecting...';
+    setTimeout(() => { window.location.href = '#subscribe'; }, 1000);
+  });
+</script>
+</body>
+</html>
