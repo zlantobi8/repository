@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Win Millions – MTN Playbox</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --yellow: #FFCC00;
+    --yellow-dark: #e6b800;
+    --black: #111;
+    --white: #fff;
+    --muted: #888;
+    --green: #1DB954;
+    --bg: #f7f7f7;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'Sora', sans-serif;
+    background: var(--bg);
+  }
+
+  .page {
+    max-width: 420px;
+    margin: 0 auto;
+    height: 100vh;
+    max-height: 900px;
+    background: var(--white);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* TOP BAR */
+  .topbar {
+    background: var(--black);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-shrink: 0;
+  }
+  .mtn-badge {
+    background: var(--yellow);
+    color: #000;
+    font-weight: 800;
+    font-size: 0.8rem;
+    padding: 4px 12px;
+    border-radius: 5px;
+    letter-spacing: 2px;
+  }
+  .topbar-label {
+    font-size: 0.68rem;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 22px 20px 30px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px; left: 0; right: 0;
+    height: 28px;
+    background: var(--white);
+    border-radius: 28px 28px 0 0;
+  }
+  .eyebrow {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-size: clamp(1.9rem, 9vw, 2.6rem);
+    font-weight: 800;
+    color: var(--white);
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+  .hero-title span { color: var(--yellow); }
+  .hero-sub {
+    font-size: 0.82rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.5;
+  }
+
+  /* BODY */
+  .body {
+    flex: 1;
+    padding: 18px 20px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    overflow: hidden;
+  }
+
+  /* FREE BADGE */
+  .free-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: #edfbf2;
+    border: 1.5px solid #b2f0cc;
+    border-radius: 50px;
+    padding: 7px 14px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #158a3e;
+    align-self: flex-start;
+  }
+  .dot {
+    width: 7px; height: 7px;
+    background: var(--green);
+    border-radius: 50%;
+    animation: blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink {
+    0%,100% { opacity: 1; } 50% { opacity: 0.25; }
+  }
+
+  /* STATS */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .stat {
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 10px 8px;
+    text-align: center;
+  }
+  .stat-val {
+    display: block;
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--black);
+  }
+  .stat-lbl {
+    font-size: 0.6rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* STEPS */
+  .steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid #f2f2f2;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-icon {
+    width: 36px; height: 36px;
+    background: var(--yellow);
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem;
+    flex-shrink: 0;
+  }
+  .step-title { font-size: 0.82rem; font-weight: 700; color: var(--black); }
+  .step-desc { font-size: 0.72rem; color: var(--muted); line-height: 1.4; }
+
+  /* CTA AREA */
+  .cta-area {
+    padding: 14px 20px 20px;
+    flex-shrink: 0;
+    border-top: 1px solid #f2f2f2;
+  }
+
+  .price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  .price-row-label { font-size: 0.75rem; color: var(--muted); }
+  .price-row-val { font-size: 0.8rem; font-weight: 700; color: var(--black); }
+  .free-chip {
+    background: var(--green);
+    color: #fff;
+    font-size: 0.62rem;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 50px;
+    margin-left: 5px;
+  }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 17px;
+    background: var(--yellow);
+    color: #000;
+    font-family: 'Sora', sans-serif;
+    font-size: 1rem;
+    font-weight: 800;
+    border: none;
+    border-radius: 13px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+    margin-top: 10px;
+  }
+  .cta-btn:active { transform: scale(0.98); background: var(--yellow-dark); }
+
+  .sub-note {
+    text-align: center;
+    font-size: 0.67rem;
+    color: var(--muted);
+    margin-top: 8px;
+    line-height: 1.6;
+  }
+
+  .trust-row {
+    display: flex;
+    justify-content: center;
+    gap: 18px;
+    margin-top: 10px;
+  }
+  .trust-item {
+    font-size: 0.67rem;
+    color: var(--muted);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="mtn-badge">MTN</div>
+    <div class="topbar-label">Playbox Trivia</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="eyebrow">🏆 Daily Cash Prizes</div>
+    <h1 class="hero-title">Answer. Win.<br><span>Millions.</span></h1>
+    <p class="hero-sub">Nigeria's biggest trivia game — play daily, win real cash.</p>
+  </div>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <div class="free-badge">
+      <div class="dot"></div>
+      Your first day is completely free
+    </div>
+
+    <div class="stats">
+      <div class="stat">
+        <span class="stat-val">50K+</span>
+        <span class="stat-lbl">Players</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">₦5M+</span>
+        <span class="stat-lbl">Paid Out</span>
+      </div>
+      <div class="stat">
+        <span class="stat-val">Daily</span>
+        <span class="stat-lbl">Winners</span>
+      </div>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-icon">🧠</div>
+        <div>
+          <div class="step-title">Play today — free</div>
+          <div class="step-desc">No charge on day one. Jump straight in.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">🎯</div>
+        <div>
+          <div class="step-title">Beat other players</div>
+          <div class="step-desc">Answer fast, score high, climb the leaderboard.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-icon">💰</div>
+        <div>
+          <div class="step-title">Collect your prize</div>
+          <div class="step-desc">Real cash, real airtime — paid out every day.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-area">
+    <div class="price-row">
+      <span class="price-row-label">Today</span>
+      <span class="price-row-val">₦0 <span class="free-chip">FREE</span></span>
+    </div>
+    <div class="price-row">
+      <span class="price-row-label">From tomorrow</span>
+      <span class="price-row-val">₦100 / day</span>
+    </div>
+
+    <a href="https://kdmjzwq.com/cl/244913ebd108c4b6" class="cta-btn">
+      🎮 Play Now for Free
+    </a>
+
+    <div class="sub-note">
+      ₦100/day after trial · Cancel anytime · MTN subscribers only
+    </div>
+
+    <div class="trust-row">
+      <div class="trust-item">🔒 Secure</div>
+      <div class="trust-item">✅ MTN Verified</div>
+      <div class="trust-item">🏆 Real Prizes</div>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
